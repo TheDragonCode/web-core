@@ -1,0 +1,32 @@
+{
+    "name": "dragon-code/web-app-support",
+    "description": "Helper's package for the Dragon Code apps",
+    "type": "library",
+    "require": {
+        "dragon-code/support": "^5.5",
+        "dragon-code/contracts": "^2.14",
+        "dragon-code/simple-data-transfer-object": "^2.0",
+        "dragon-code/laravel-migration-actions": "^2.1",
+        "dragon-code/laravel-cache": "^2.9",
+        "dragon-code/api-response": "^9.0"
+    },
+    "require-dev": {
+        "dragon-code/env-sync-laravel": "^2.0",
+        "dragon-code/laravel-json-response": "^2.0",
+        "dragon-code/pretty-routes": "^3.0",
+        "laravel-lang/publisher": "^11.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "DragonCode\\WebAppSupport\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andrey Helldar",
+            "email": "helldar@ai-rus.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
