@@ -1,6 +1,6 @@
 {
-    "name": "dragon-code/web-app-support",
-    "description": "Helper's package for the Dragon Code apps",
+    "name": "dragon-code/web-core",
+    "description": "Web core for the Dragon Code apps",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -42,7 +42,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "DragonCode\\WebAppSupport\\": "src"
+            "DragonCode\\WebCore\\": "src"
         }
     },
     "autoload-dev": {
@@ -62,10 +62,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "DragonCode\\WebAppSupport\\Providers\\AppServiceProvider",
-                "DragonCode\\WebAppSupport\\Providers\\BladeServiceProvider",
-                "DragonCode\\WebAppSupport\\Providers\\RouteServiceProvider",
-                "DragonCode\\WebAppSupport\\ServiceProvider"
+                "DragonCode\\WebCore\\Providers\\AppServiceProvider",
+                "DragonCode\\WebCore\\Providers\\BladeServiceProvider",
+                "DragonCode\\WebCore\\Providers\\RouteServiceProvider",
+                "DragonCode\\WebCore\\ServiceProvider"
             ]
         }
     }
