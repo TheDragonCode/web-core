@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DragonCode\WebAppSupport\Providers;
+namespace DragonCode\WebCore\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DragonCode\WebAppSupport\Providers;
+namespace DragonCode\WebCore\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Laravel\Telescope\IncomingEntry;

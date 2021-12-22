@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DragonCode\WebAppSupport\Support;
+namespace DragonCode\WebCore\Support;
 
 use DragonCode\Cache\Services\Cache as DragonCache;
 use DragonCode\Contracts\DataTransferObject\DataTransferObject;

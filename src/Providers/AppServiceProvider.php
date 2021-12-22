@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DragonCode\WebAppSupport\Providers;
+namespace DragonCode\WebCore\Providers;
 
 use DragonCode\ApiResponse\Services\Response;
 use Illuminate\Support\ServiceProvider;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace DragonCode\WebAppSupport\Facades;
+namespace DragonCode\WebCore\Facades;
 
 use DragonCode\Contracts\DataTransferObject\DataTransferObject;
-use DragonCode\WebAppSupport\Support\Cache as Support;
+use DragonCode\WebCore\Support\Cache as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**

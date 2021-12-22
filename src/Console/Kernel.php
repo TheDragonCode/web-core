@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DragonCode\WebAppSupport\Console;
+namespace DragonCode\WebCore\Console;
 
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 

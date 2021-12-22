@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DragonCode\WebAppSupport\Http\Middleware;
+namespace DragonCode\WebCore\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace DragonCode\WebAppSupport\Http;
+namespace DragonCode\WebCore\Http;
 
-use DragonCode\WebAppSupport\Http\Middleware\EncryptCookies;
-use DragonCode\WebAppSupport\Http\Middleware\TrimStrings;
-use DragonCode\WebAppSupport\Http\Middleware\TrustHosts;
-use DragonCode\WebAppSupport\Http\Middleware\TrustProxies;
+use DragonCode\WebCore\Http\Middleware\EncryptCookies;
+use DragonCode\WebCore\Http\Middleware\TrimStrings;
+use DragonCode\WebCore\Http\Middleware\TrustHosts;
+use DragonCode\WebCore\Http\Middleware\TrustProxies;
 use Fruitcake\Cors\HandleCors;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;

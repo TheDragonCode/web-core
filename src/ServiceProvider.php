@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DragonCode\WebAppSupport;
+namespace DragonCode\WebCore;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
