@@ -10,10 +10,15 @@ use Laravel\Telescope\TelescopeApplicationServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->registerResponseExtra();
         $this->registerTelescope();
+    }
+
+    public function boot(): void
+    {
+        $this->bootMigrations();
     }
 
     protected function registerTelescope(): void
@@ -28,5 +33,10 @@ class AppServiceProvider extends ServiceProvider
         config('app.debug')
             ? Response::allowWith()
             : Response::withoutWith();
+    }
+
+    protected function bootMigrations(): void
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
     }
 }
