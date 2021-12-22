@@ -1,32 +1,72 @@
 {
     "name": "dragon-code/web-app-support",
     "description": "Helper's package for the Dragon Code apps",
-    "type": "library",
-    "require": {
-        "dragon-code/support": "^5.5",
-        "dragon-code/contracts": "^2.14",
-        "dragon-code/simple-data-transfer-object": "^2.0",
-        "dragon-code/laravel-migration-actions": "^2.1",
-        "dragon-code/laravel-cache": "^2.9",
-        "dragon-code/api-response": "^9.0"
-    },
-    "require-dev": {
-        "dragon-code/env-sync-laravel": "^2.0",
-        "dragon-code/laravel-json-response": "^2.0",
-        "dragon-code/pretty-routes": "^3.0",
-        "laravel-lang/publisher": "^11.1"
-    },
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "DragonCode\\WebAppSupport\\": "src"
-        }
-    },
+    "type": "library",
     "authors": [
         {
             "name": "Andrey Helldar",
             "email": "helldar@ai-rus.com"
         }
     ],
-    "minimum-stability": "stable"
+    "require": {
+        "php": "^8.1",
+        "doctrine/dbal": "^3.2",
+        "dragon-code/api-response": "^9.0",
+        "dragon-code/contracts": "^2.14",
+        "dragon-code/laravel-cache": "^2.9",
+        "dragon-code/laravel-json-response": "^2.0",
+        "dragon-code/laravel-migration-actions": "^2.1",
+        "dragon-code/simple-data-transfer-object": "^2.0",
+        "dragon-code/support": "^5.5",
+        "fruitcake/laravel-cors": "^2.0",
+        "guzzlehttp/guzzle": "^7.4",
+        "laravel/framework": "^8.77",
+        "laravel/sanctum": "^2.11",
+        "laravel/tinker": "^2.5",
+        "spatie/laravel-disable-floc": "^1.0"
+    },
+    "require-dev": {
+        "dragon-code/env-sync-laravel": "^2.0",
+        "dragon-code/pretty-routes": "^3.0",
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9",
+        "laravel-lang/http-statuses": "^2.0",
+        "laravel-lang/publisher": "^11.1",
+        "laravel/telescope": "^4.6",
+        "mockery/mockery": "^1.4",
+        "nunomaduro/collision": "^5.10",
+        "phpunit/phpunit": "^9.5"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "DragonCode\\WebAppSupport\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/*": true,
+            "symfony/*": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DragonCode\\WebAppSupport\\Providers\\AppServiceProvider",
+                "DragonCode\\WebAppSupport\\Providers\\BladeServiceProvider",
+                "DragonCode\\WebAppSupport\\Providers\\RouteServiceProvider",
+                "DragonCode\\WebAppSupport\\ServiceProvider"
+            ]
+        }
+    }
 }
