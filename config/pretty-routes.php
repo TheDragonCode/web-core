@@ -15,15 +15,11 @@
  */
 
 return [
-    /*
-     * The endpoint to access the routes.
-     */
+    // The endpoint to access the routes.
 
     'url' => 'routes',
 
-    /*
-     * The middleware(s) to apply before attempting to access routes pages (web + api).
-     */
+    // The middleware(s) to apply before attempting to access routes pages (web + api).
 
     'middlewares' => [],
 
@@ -43,23 +39,17 @@ return [
 
     'api_middleware' => 'api',
 
-    /*
-     * Indicates whether to enable pretty routes only when debug is enabled (APP_DEBUG).
-     */
+    // Indicates whether to enable pretty routes only when debug is enabled (APP_DEBUG).
 
     'debug_only' => true,
 
-    /*
-     * The methods to hide.
-     */
+    // The methods to hide.
 
     'hide_methods' => [
         'HEAD',
     ],
 
-    /*
-     * The routes to hide with regular expression
-     */
+    // The routes to hide with regular expression
 
     'hide_matching' => [
         '#^__clockwork#',
@@ -152,9 +142,7 @@ return [
 
     'dummy_variable_prefix' => 'param_',
 
-    /*
-     * Click and copy to clipboard "path" and "name" text.
-     */
+    // Click and copy to clipboard "path" and "name" text.
 
     'click_and_copy' => true,
 

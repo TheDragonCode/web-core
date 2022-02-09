@@ -16,7 +16,7 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
-    protected function json(mixed $data = null, int $status = null, array $with = []): JsonResponse
+    protected function json(mixed $data = null, ?int $status = null, array $with = []): JsonResponse
     {
         return api_response($data, $status, $with);
     }
