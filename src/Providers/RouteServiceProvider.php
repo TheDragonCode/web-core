@@ -30,7 +30,8 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function bootApiRoutes(): void
     {
-        $this->bootRoutes('routes/api.php',
+        $this->bootRoutes(
+            'routes/api.php',
             static fn () => Route::middleware('api')
         );
     }
@@ -44,7 +45,8 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function configureRateLimiting(): void
     {
-        RateLimiter::for('api',
+        RateLimiter::for(
+            'api',
             fn (Request $request) => Limit::perMinute($this->max_attempts)->by($this->userIdentifier($request))
         );
     }
