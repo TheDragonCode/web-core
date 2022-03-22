@@ -5,25 +5,22 @@ declare(strict_types=1);
 namespace DragonCode\WebCore\Http;
 
 use DragonCode\WebCore\Http\Middleware\Authenticate;
-use DragonCode\WebCore\Http\Middleware\EncryptCookies;
+use DragonCode\WebCore\Http\Middleware\PreventRequestsDuringMaintenance;
 use DragonCode\WebCore\Http\Middleware\TrimStrings;
 use DragonCode\WebCore\Http\Middleware\TrustHosts;
 use DragonCode\WebCore\Http\Middleware\TrustProxies;
-use Fruitcake\Cors\HandleCors;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Auth\Middleware\RequirePassword;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Http\Middleware\SetCacheHeaders;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Routing\Middleware\ValidateSignature;
-use Illuminate\Session\Middleware\StartSession;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 abstract class Kernel extends HttpKernel
@@ -32,21 +29,13 @@ abstract class Kernel extends HttpKernel
         TrustHosts::class,
         TrustProxies::class,
         HandleCors::class,
+        PreventRequestsDuringMaintenance::class,
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
     ];
 
     protected $middlewareGroups = [
-        'web' => [
-            EncryptCookies::class,
-            AddQueuedCookiesToResponse::class,
-            StartSession::class,
-            //\Illuminate\Session\Middleware\AuthenticateSession::class,
-            ShareErrorsFromSession::class,
-            SubstituteBindings::class,
-        ],
-
         'api' => [
             EnsureFrontendRequestsAreStateful::class,
             'throttle:api',

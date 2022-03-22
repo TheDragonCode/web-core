@@ -25,21 +25,13 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->routes(function () {
             $this->bootApiRoutes();
-            $this->bootWebRoutes();
         });
     }
 
     protected function bootApiRoutes(): void
     {
         $this->bootRoutes('routes/api.php',
-            static fn () => Route::name('api.')->middleware('api')
-        );
-    }
-
-    protected function bootWebRoutes(): void
-    {
-        $this->bootRoutes('routes/web.php',
-            static fn () => Route::middleware('web')
+            static fn () => Route::middleware('api')
         );
     }
 
