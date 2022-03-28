@@ -9,7 +9,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Contracts\Http\Kernel as HttpKernelContract;
 
 $app = new Application(
-    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__ . '/../../../')
+    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__ . '/../../../../')
 );
 
 $app->singleton(
