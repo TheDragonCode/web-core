@@ -44,10 +44,12 @@ class ConfigServiceProvider extends ServiceProvider
     {
         $config = $this->app->make('config');
 
-        $config->set($key,
+        $config->set(
+            $key,
             array_merge(
                 $config->get($key, []),
                 require $path
-            ));
+            )
+        );
     }
 }
