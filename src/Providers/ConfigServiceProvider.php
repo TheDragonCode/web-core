@@ -2,31 +2,35 @@
 
 namespace DragonCode\WebCore\Providers;
 
-use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\Support\Facades\Helpers\Str;
 use Illuminate\Support\ServiceProvider;
 
 class ConfigServiceProvider extends ServiceProvider
 {
     protected string $path = __DIR__ . '/../../config/';
 
-    public function boot()
+    public function register()
     {
-        if ($this->hasCache()) {
-            return;
-        }
-
-        foreach ($this->names() as $name) {
-            $this->mergeConfigFrom($this->path . $name, $name);
+        if ($this->doesntCache()) {
+            foreach ($this->names() as $filename) {
+                $this->mergeConfigFrom($this->path . $filename, $this->name($filename));
+            }
         }
     }
 
     protected function names(): array
     {
-        return Directory::names($this->path);
+        return File::names($this->path);
     }
 
-    protected function hasCache(): bool
+    protected function name(string $filename): string
     {
-        return file_exists(base_path('bootstrap/cache/config.php'));
+        return Str::before($filename, '.php');
+    }
+
+    protected function doesntCache(): bool
+    {
+        return ! file_exists(base_path('bootstrap/cache/config.php'));
     }
 }

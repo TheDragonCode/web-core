@@ -8,39 +8,15 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
-    protected array $config = [
-        'app',
-        'auth',
-        'broadcasting',
-        'cache',
-        'cors',
-        'database',
-        'filesystems',
-        'hashing',
-        'ignition',
-        'lang-publisher',
-        'logging',
-        'mail',
-        'pretty-routes',
-        'queue',
-        'sanctum',
-        'services',
-        'session',
-        'sluggable',
-        'telescope',
-        'tinker',
-        'view',
-    ];
-
-    public function register()
+    public function boot(): void
     {
-        $this->registerConfig();
+        $this->publishMigrations();
     }
 
-    protected function registerConfig(): void
+    protected function publishMigrations(): void
     {
-        foreach ($this->config as $name) {
-            $this->mergeConfigFrom(__DIR__ . "/../config/$name.php", $name);
-        }
+        $this->publishes([
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
+        ], 'migrations');
     }
 }

@@ -70,9 +70,6 @@
     "extra": {
         "laravel": {
             "providers": [
-                "DragonCode\\WebCore\\Providers\\AppServiceProvider",
-                "DragonCode\\WebCore\\Providers\\BladeServiceProvider",
-                "DragonCode\\WebCore\\Providers\\RouteServiceProvider",
                 "DragonCode\\WebCore\\ServiceProvider"
             ]
         }
