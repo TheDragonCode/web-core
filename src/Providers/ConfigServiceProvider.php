@@ -4,6 +4,7 @@ namespace DragonCode\WebCore\Providers;
 
 use DragonCode\Support\Facades\Helpers\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Str;
+use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Illuminate\Support\ServiceProvider;
 
 class ConfigServiceProvider extends ServiceProvider
@@ -31,6 +32,22 @@ class ConfigServiceProvider extends ServiceProvider
 
     protected function doesntCache(): bool
     {
-        return ! file_exists(base_path('bootstrap/cache/config.php'));
+        return ! $this->hasCache();
+    }
+
+    protected function hasCache(): bool
+    {
+        return $this->app instanceof CachesConfiguration && $this->app->configurationIsCached();
+    }
+
+    protected function mergeConfigFrom($path, $key)
+    {
+        $config = $this->app->make('config');
+
+        $config->set($key,
+            array_merge(
+                $config->get($key, []),
+                require $path
+            ));
     }
 }
