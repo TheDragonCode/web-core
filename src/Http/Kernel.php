@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\WebCore\Http;
 
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
 use DragonCode\WebCore\Foundation\Bootstrap\LoadConfiguration;
 use DragonCode\WebCore\Http\Middleware\Authenticate;
 use DragonCode\WebCore\Http\Middleware\PreventRequestsDuringMaintenance;
@@ -14,6 +15,7 @@ use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Auth\Middleware\RequirePassword;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\BootProviders;
 use Illuminate\Foundation\Bootstrap\HandleExceptions;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
@@ -27,6 +29,7 @@ use Illuminate\Http\Middleware\SetCacheHeaders;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Routing\Middleware\ValidateSignature;
+use Illuminate\Routing\Router;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 abstract class Kernel extends HttpKernel
@@ -72,22 +75,26 @@ abstract class Kernel extends HttpKernel
         'throttle'         => ThrottleRequests::class,
     ];
 
+    public function __construct(Application $app, Router $router)
+    {
+        $this->mergeMiddlewareGroups();
+
+        parent::__construct($app, $router);
+    }
+
     public function getRouteMiddleware(): array
     {
         return array_merge($this->mainRouteMiddleware, $this->routeMiddleware);
     }
 
-    public function getMiddlewareGroups(): array
+    protected function mergeMiddlewareGroups(): void
     {
         foreach ($this->mainMiddlewareGroups as $group => $middlewares) {
-            if (! isset($this->middlewareGroups[$group])) {
-                $this->middlewareGroups[$group] = [];
-            }
-
-            $this->appendMiddlewareToGroup($group, $middlewares);
+            $this->middlewareGroups[$group] = Arrayable::of($this->middlewareGroups[$group] ?? [])
+                ->push(...$middlewares)
+                ->unique()
+                ->get();
         }
-
-        return $this->middlewareGroups;
     }
 
     protected function syncMiddlewareToRouter(): void
