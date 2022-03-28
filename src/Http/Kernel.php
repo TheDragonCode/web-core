@@ -65,7 +65,11 @@ abstract class Kernel extends HttpKernel
     public function getMiddlewareGroups(): array
     {
         foreach ($this->mainMiddlewareGroups as $group => $middlewares) {
-            $this->prependMiddlewareToGroup($group, $middlewares);
+            if (! isset($this->middlewareGroups[$group])) {
+                $this->middlewareGroups[$group] = [];
+            }
+
+            $this->appendMiddlewareToGroup($group, $middlewares);
         }
 
         return $this->middlewareGroups;
