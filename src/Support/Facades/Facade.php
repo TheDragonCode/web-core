@@ -4,7 +4,6 @@ namespace DragonCode\WebCore\Support\Facades;
 
 use DragonCode\WebCore\Providers\AppServiceProvider;
 use DragonCode\WebCore\Providers\BroadcastServiceProvider as BroadcastCoreServiceProvider;
-use DragonCode\WebCore\Providers\ConfigServiceProvider;
 use DragonCode\WebCore\Providers\RouteServiceProvider;
 use Illuminate\Auth\AuthServiceProvider;
 use Illuminate\Auth\Passwords\PasswordResetServiceProvider;
@@ -60,7 +59,6 @@ abstract class Facade extends BaseFacade
             ViewServiceProvider::class,
 
             // Web Core Providers
-            ConfigServiceProvider::class,
             AppServiceProvider::class,
             BroadcastCoreServiceProvider::class,
             RouteServiceProvider::class,

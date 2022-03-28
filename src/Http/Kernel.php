@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\WebCore\Http;
 
+use DragonCode\WebCore\Foundation\Bootstrap\LoadConfiguration;
 use DragonCode\WebCore\Http\Middleware\Authenticate;
 use DragonCode\WebCore\Http\Middleware\PreventRequestsDuringMaintenance;
 use DragonCode\WebCore\Http\Middleware\TrimStrings;
@@ -13,6 +14,11 @@ use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Auth\Middleware\RequirePassword;
+use Illuminate\Foundation\Bootstrap\BootProviders;
+use Illuminate\Foundation\Bootstrap\HandleExceptions;
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
+use Illuminate\Foundation\Bootstrap\RegisterFacades;
+use Illuminate\Foundation\Bootstrap\RegisterProviders;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
@@ -25,6 +31,15 @@ use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 abstract class Kernel extends HttpKernel
 {
+    protected $bootstrappers = [
+        LoadEnvironmentVariables::class,
+        LoadConfiguration::class,
+        HandleExceptions::class,
+        RegisterFacades::class,
+        RegisterProviders::class,
+        BootProviders::class,
+    ];
+
     protected $middleware = [
         TrustHosts::class,
         TrustProxies::class,
