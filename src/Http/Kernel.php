@@ -101,7 +101,7 @@ abstract class Kernel extends HttpKernel
     {
         $this->router->middlewarePriority = $this->middlewarePriority;
 
-        foreach ($this->middlewareGroups as $key => $middleware) {
+        foreach ($this->getMiddlewareGroups() as $key => $middleware) {
             $this->router->middlewareGroup($key, $middleware);
         }
 
