@@ -35,7 +35,7 @@ abstract class Kernel extends HttpKernel
         ConvertEmptyStringsToNull::class,
     ];
 
-    protected $middlewareGroups = [
+    protected array $mainMiddlewareGroups = [
         'api' => [
             EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
@@ -60,5 +60,27 @@ abstract class Kernel extends HttpKernel
     public function getRouteMiddleware(): array
     {
         return array_merge($this->mainRouteMiddleware, $this->routeMiddleware);
+    }
+
+    public function getMiddlewareGroups(): array
+    {
+        foreach ($this->mainMiddlewareGroups as $group => $middlewares) {
+            $this->prependMiddlewareToGroup($group, $middlewares);
+        }
+
+        return $this->middlewareGroups;
+    }
+
+    protected function syncMiddlewareToRouter(): void
+    {
+        $this->router->middlewarePriority = $this->middlewarePriority;
+
+        foreach ($this->middlewareGroups as $key => $middleware) {
+            $this->router->middlewareGroup($key, $middleware);
+        }
+
+        foreach ($this->getRouteMiddleware() as $key => $middleware) {
+            $this->router->aliasMiddleware($key, $middleware);
+        }
     }
 }
