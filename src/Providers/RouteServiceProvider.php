@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected int $max_attempts = 60;
+    protected int $max_attempts = 120;
 
     public function boot()
     {
@@ -23,28 +23,32 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRoutes(): void
     {
         $this->routes(function () {
-            $this->bootRoutes('routes/api.php', static fn () => Route::middleware('api'));
-            $this->bootRoutes('routes/web.php', static fn () => Route::middleware('web'));
+            $this->bootRoutes('routes/api.php', fn () => Route::middleware('api'), $this->routeExist('routes/web.php'), 'api');
+            $this->bootRoutes('routes/web.php', fn () => Route::middleware('web'));
         });
     }
 
-    protected function bootRoutes(string $filename, callable $registrar): void
+    protected function bootRoutes(string $filename, callable $registrar, bool $when = false, string $prefix = null): void
     {
-        if (file_exists(base_path($filename))) {
-            $registrar()->group(base_path($filename));
+        if ($this->routeExist($filename)) {
+            $when
+                ? $registrar()->prefix($prefix)->group(base_path($filename))
+                : $registrar()->group(base_path($filename));
         }
     }
 
     protected function configureRateLimiting(): void
     {
-        RateLimiter::for(
-            'api',
-            fn (Request $request) => Limit::perMinute($this->max_attempts)->by($this->userIdentifier($request))
-        );
+        RateLimiter::for('api', fn (Request $request) => Limit::perMinute($this->max_attempts)->by($this->userIdentifier($request)));
     }
 
     protected function userIdentifier(Request $request): int|string
     {
         return $request->user()?->id ?? $request->ip();
+    }
+
+    protected function routeExist(string $filename): bool
+    {
+        return file_exists(base_path($filename));
     }
 }
