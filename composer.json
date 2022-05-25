@@ -27,7 +27,7 @@
         "dragon-code/laravel-support": "^3.3",
         "dragon-code/simple-dto": "^2.3",
         "dragon-code/support": "^6.1.2",
-        "guzzlehttp/guzzle": "^7.4",
+        "guzzlehttp/guzzle": "^7.4.3",
         "laravel-lang/publisher": "^13.0",
         "laravel/framework": "^9.14",
         "laravel/sanctum": "^2.15",
