@@ -20,7 +20,7 @@ jobs:
                     coverage: none
 
             -   name: Install dependencies
-                run: composer install --prefer-stable --prefer-dist --no-progress --no-interaction --no-cache
+                run: composer install --prefer-dist --no-progress --no-interaction --no-cache
 
             -   name: Execute tests
                 run: sudo vendor/bin/phpunit
