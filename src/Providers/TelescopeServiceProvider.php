@@ -16,10 +16,6 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         $this->hideSensitiveRequestDetails();
 
         Telescope::filter(function (IncomingEntry $entry) {
-            if ($this->isLocal()) {
-                return true;
-            }
-
             return $entry->isReportableException()
                    || $entry->isFailedRequest()
                    || $entry->isFailedJob()
@@ -30,10 +26,6 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 
     protected function hideSensitiveRequestDetails()
     {
-        if ($this->isLocal()) {
-            return;
-        }
-
         Telescope::hideRequestParameters(['_token']);
 
         Telescope::hideRequestHeaders([
@@ -46,10 +38,5 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewTelescope', static fn ($user) => true);
-    }
-
-    protected function isLocal(): bool
-    {
-        return $this->app->isLocal();
     }
 }
