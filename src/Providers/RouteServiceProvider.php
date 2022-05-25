@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
-    protected function bootRoutes(string $filename, callable $registrar, bool $when = false, string $prefix = null): void
+    protected function bootRoutes(string $filename, callable $registrar, bool $when = false, ?string $prefix = null): void
     {
         if ($this->routeExist($filename)) {
             $when
