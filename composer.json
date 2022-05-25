@@ -15,6 +15,7 @@
         "ext-pdo": "*",
         "ext-redis": "*",
         "archtechx/enums": "^0.3",
+        "deployer/deployer": "^7.0.0-rc.8",
         "doctrine/dbal": "^3.3",
         "dragon-code/api-response": "^10.0",
         "dragon-code/contracts": "^2.18",
