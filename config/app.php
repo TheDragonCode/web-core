@@ -3,7 +3,6 @@
 use DragonCode\WebCore\Facades\Facade;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
