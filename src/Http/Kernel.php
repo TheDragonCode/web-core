@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\WebCore\Http;
 
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\WebCore\Foundation\Bootstrap\LoadConfiguration;
 use DragonCode\WebCore\Http\Middleware\Authenticate;
 use DragonCode\WebCore\Http\Middleware\PreventRequestsDuringMaintenance;
@@ -90,10 +90,10 @@ abstract class Kernel extends HttpKernel
     protected function mergeMiddlewareGroups(): void
     {
         foreach ($this->mainMiddlewareGroups as $group => $middlewares) {
-            $this->middlewareGroups[$group] = Arrayable::of($this->middlewareGroups[$group] ?? [])
+            $this->middlewareGroups[$group] = Arr::of($this->middlewareGroups[$group] ?? [])
                 ->push(...$middlewares)
                 ->unique()
-                ->get();
+                ->toArray();
         }
     }
 

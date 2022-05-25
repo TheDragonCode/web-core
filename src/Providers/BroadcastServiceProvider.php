@@ -9,9 +9,9 @@ class BroadcastServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        Broadcast::routes();
-
         if ($this->exists()) {
+            Broadcast::routes();
+
             require $this->path();
         }
     }

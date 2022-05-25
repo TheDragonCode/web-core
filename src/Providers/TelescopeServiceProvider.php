@@ -21,10 +21,10 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
             }
 
             return $entry->isReportableException()
-                || $entry->isFailedRequest()
-                || $entry->isFailedJob()
-                || $entry->isScheduledTask()
-                || $entry->hasMonitoredTag();
+                   || $entry->isFailedRequest()
+                   || $entry->isFailedJob()
+                   || $entry->isScheduledTask()
+                   || $entry->hasMonitoredTag();
         });
     }
 
@@ -50,6 +50,6 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 
     protected function isLocal(): bool
     {
-        return $this->app->environment('local');
+        return $this->app->isLocal();
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Facades;
 
-use App\Facades\Cache;
+use DragonCode\WebCore\Facades\Cache;
 use Tests\Fixtures\Cache\Keys;
 use Tests\TestCase;
 

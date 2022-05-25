@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace DragonCode\WebCore\Facades\Filesystem;
 
+use DragonCode\WebCore\Facades\Facade;
 use DragonCode\WebCore\Support\Filesystem\Assets as Support;
-use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static string font(string $filename)

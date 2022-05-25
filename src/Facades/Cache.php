@@ -6,7 +6,6 @@ namespace DragonCode\WebCore\Facades;
 
 use DragonCode\Contracts\DataTransferObject\DataTransferObject;
 use DragonCode\WebCore\Support\Cache as Support;
-use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static bool has(DataTransferObject $keys)

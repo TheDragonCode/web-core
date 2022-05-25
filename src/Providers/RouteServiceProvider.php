@@ -17,23 +17,15 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureRateLimiting();
-
         $this->configureRoutes();
     }
 
     protected function configureRoutes(): void
     {
         $this->routes(function () {
-            $this->bootApiRoutes();
+            $this->bootRoutes('routes/api.php', static fn () => Route::middleware('api'));
+            $this->bootRoutes('routes/web.php', static fn () => Route::middleware('web'));
         });
-    }
-
-    protected function bootApiRoutes(): void
-    {
-        $this->bootRoutes(
-            'routes/api.php',
-            static fn () => Route::middleware('api')
-        );
     }
 
     protected function bootRoutes(string $filename, callable $registrar): void
@@ -53,6 +45,6 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function userIdentifier(Request $request): int|string
     {
-        return optional($request->user())->id ?: $request->ip();
+        return $request->user()?->id ?? $request->ip();
     }
 }

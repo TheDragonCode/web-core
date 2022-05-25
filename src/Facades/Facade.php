@@ -1,6 +1,6 @@
 <?php
 
-namespace DragonCode\WebCore\Support\Facades;
+namespace DragonCode\WebCore\Facades;
 
 use DragonCode\WebCore\Providers\AppServiceProvider;
 use DragonCode\WebCore\Providers\BroadcastServiceProvider as BroadcastCoreServiceProvider;

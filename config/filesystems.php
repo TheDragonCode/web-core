@@ -1,5 +1,7 @@
 <?php
 
+use DragonCode\Support\Facades\Helpers\Str;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -36,14 +38,14 @@ return [
         'public' => [
             'driver'     => 'local',
             'root'       => storage_path('app/public'),
-            'url'        => env('APP_URL') . '/storage',
+            'url'        => Str::of(env('ASSET_URL', env('APP_URL', 'http://localhost')))->rtrim('/')->append('/storage'),
             'visibility' => 'public',
         ],
 
         'assets' => [
             'driver'     => 'local',
             'root'       => storage_path('app/public'),
-            'url'        => env('ASSET_URL'),
+            'url'        => Str::of(env('ASSET_URL', env('APP_URL', 'http://localhost')))->rtrim('/'),
             'visibility' => 'public',
         ],
     ],

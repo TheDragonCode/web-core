@@ -27,8 +27,6 @@ class TrustHosts extends Middleware
 
     protected function host(): ?string
     {
-        $host = config('app.url');
-
-        return Builder::parse($host)->getBaseDomain();
+        return Builder::parse(config('app.url'))->getBaseDomain();
     }
 }
