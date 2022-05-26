@@ -13,7 +13,7 @@ class VerifyCsrfToken extends Middleware
     {
         $this->setExcept();
 
-        parent::handle($request, $next);
+        return parent::handle($request, $next);
     }
 
     protected function setExcept(): void
