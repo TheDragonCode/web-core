@@ -7,15 +7,19 @@ namespace DragonCode\WebCore\Http;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\WebCore\Foundation\Bootstrap\LoadConfiguration;
 use DragonCode\WebCore\Http\Middleware\Authenticate;
+use DragonCode\WebCore\Http\Middleware\EncryptCookies;
 use DragonCode\WebCore\Http\Middleware\PreventRequestsDuringMaintenance;
+use DragonCode\WebCore\Http\Middleware\RedirectIfAuthenticated;
 use DragonCode\WebCore\Http\Middleware\TrimStrings;
 use DragonCode\WebCore\Http\Middleware\TrustHosts;
 use DragonCode\WebCore\Http\Middleware\TrustProxies;
+use DragonCode\WebCore\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Foundation\Bootstrap\BootProviders;
 use Illuminate\Foundation\Bootstrap\HandleExceptions;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
@@ -30,6 +34,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Routing\Router;
+use Illuminate\Session\Middleware\AuthenticateSession;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 abstract class Kernel extends HttpKernel
@@ -54,6 +61,15 @@ abstract class Kernel extends HttpKernel
     ];
 
     protected array $mainMiddlewareGroups = [
+        'web' => [
+            EncryptCookies::class,
+            AddQueuedCookiesToResponse::class,
+            StartSession::class,
+            ShareErrorsFromSession::class,
+            VerifyCsrfToken::class,
+            SubstituteBindings::class,
+        ],
+
         'api' => [
             EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
@@ -62,14 +78,16 @@ abstract class Kernel extends HttpKernel
     ];
 
     protected array $mainRouteMiddleware = [
-        'auth'       => Authenticate::class,
-        'auth.basic' => AuthenticateWithBasicAuth::class,
+        'auth'         => Authenticate::class,
+        'auth.basic'   => AuthenticateWithBasicAuth::class,
+        'auth.session' => AuthenticateSession::class,
 
         'cache.headers' => SetCacheHeaders::class,
 
         'can'      => Authorize::class,
         'signed'   => ValidateSignature::class,
         'verified' => EnsureEmailIsVerified::class,
+        'guest'    => RedirectIfAuthenticated::class,
 
         'password.confirm' => RequirePassword::class,
         'throttle'         => ThrottleRequests::class,
