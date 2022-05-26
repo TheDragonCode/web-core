@@ -13,5 +13,9 @@ return [
         'redirect' => [
             'authenticated' => '/home',
         ],
+
+        'maintenance' => [
+            'except' => [],
+        ],
     ],
 ];

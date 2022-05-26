@@ -6,4 +6,8 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance as Mi
 
 class PreventRequestsDuringMaintenance extends Middleware
 {
+    public function getExcludedPaths(): array
+    {
+        return config('http.middleware.maintenance.except', []);
+    }
 }
