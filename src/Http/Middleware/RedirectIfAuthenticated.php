@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RedirectIfAuthenticated
 {
@@ -19,7 +20,7 @@ class RedirectIfAuthenticated
      *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ...$guards): Response|RedirectResponse
+    public function handle(Request $request, Closure $next, ...$guards): Response|JsonResponse|RedirectResponse
     {
         foreach ($this->guards($guards) as $guard) {
             if (Auth::guard($guard)->check()) {
