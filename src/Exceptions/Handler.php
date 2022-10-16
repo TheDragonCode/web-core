@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\WebCore\Exceptions;
 
-use DragonCode\ApiResponse\Exceptions\Laravel\Nine\ApiHandler as ExceptionHandler;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 abstract class Handler extends ExceptionHandler
 {
