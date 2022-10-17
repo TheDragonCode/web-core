@@ -119,7 +119,7 @@ return [
     */
 
     'maintenance' => [
-        'driver' => 'cache',
+        'driver' => 'file',
         // 'store'  => 'redis',
     ],
 
