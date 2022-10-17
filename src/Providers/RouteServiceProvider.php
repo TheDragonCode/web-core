@@ -30,8 +30,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         if ($this->routeExist($filename)) {
             ! empty($prefix)
-                ? $registrar()->prefix($prefix)->group(base_path($filename))
-                : $registrar()->group(base_path($filename));
+                ? $registrar()->prefix($prefix)->group($filename)
+                : $registrar()->group($filename);
         }
     }
 
