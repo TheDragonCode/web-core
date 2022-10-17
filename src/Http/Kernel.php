@@ -37,7 +37,6 @@ use Illuminate\Routing\Router;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 abstract class Kernel extends HttpKernel
 {
@@ -71,7 +70,6 @@ abstract class Kernel extends HttpKernel
         ],
 
         'api' => [
-            EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             SubstituteBindings::class,
         ],
@@ -105,16 +103,6 @@ abstract class Kernel extends HttpKernel
         return array_merge($this->mainRouteMiddleware, $this->routeMiddleware);
     }
 
-    protected function mergeMiddlewareGroups(): void
-    {
-        foreach ($this->mainMiddlewareGroups as $group => $middlewares) {
-            $this->middlewareGroups[$group] = Arr::of($this->middlewareGroups[$group] ?? [])
-                ->push(...$middlewares)
-                ->unique()
-                ->toArray();
-        }
-    }
-
     protected function syncMiddlewareToRouter(): void
     {
         $this->router->middlewarePriority = $this->middlewarePriority;
@@ -125,6 +113,16 @@ abstract class Kernel extends HttpKernel
 
         foreach ($this->getRouteMiddleware() as $key => $middleware) {
             $this->router->aliasMiddleware($key, $middleware);
+        }
+    }
+
+    protected function mergeMiddlewareGroups(): void
+    {
+        foreach ($this->mainMiddlewareGroups as $group => $middlewares) {
+            $this->middlewareGroups[$group] = Arr::of($this->middlewareGroups[$group] ?? [])
+                ->push(...$middlewares)
+                ->unique()
+                ->toArray();
         }
     }
 }

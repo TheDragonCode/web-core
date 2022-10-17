@@ -11,7 +11,7 @@ use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 
 class LoadConfiguration extends BaseLoadConfiguration
 {
-    protected string $config_path = __DIR__ . '/../../../config';
+    protected string $configPath = __DIR__ . '/../../../config';
 
     protected function loadConfigurationFiles(Application $app, RepositoryContract $repository)
     {
@@ -22,17 +22,24 @@ class LoadConfiguration extends BaseLoadConfiguration
 
     protected function loadCoreConfigurationFiles(RepositoryContract $repository)
     {
-        foreach ($this->getWebCoreConfigurationFile($this->config_path) as $filename) {
+        foreach ($this->getWebCoreConfigurationFile($this->configPath) as $filename) {
             $key = Str::before($filename, '.php');
 
             $config = $repository->get($key, []);
 
-            $repository->set($key, array_merge(require $this->config_path . '/' . $filename, $config));
+            $loaded = $this->mergeWithFile($this->configPath . '/' . $filename, $config);
+
+            $repository->set($key, $loaded);
         }
     }
 
     protected function getWebCoreConfigurationFile(string $path): array
     {
-        return Arr::of(File::names($path))->sort()->toArray();
+        return File::names($path);
+    }
+
+    protected function mergeWithFile(string $filename, array $values): array
+    {
+        return Arr::ofFile($filename)->merge($values)->toArray();
     }
 }

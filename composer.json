@@ -34,46 +34,41 @@
         "ext-pdo": "*",
         "ext-redis": "*",
         "archtechx/enums": "^0.3",
-        "doctrine/dbal": "^3.3",
-        "dragon-code/contracts": "^2.18",
+        "doctrine/dbal": "^3.4",
+        "dragon-code/contracts": "^2.19",
         "dragon-code/extended-routes": "^3.1",
-        "dragon-code/laravel-cache": "^3.0",
+        "dragon-code/laravel-cache": "^3.2",
         "dragon-code/laravel-http-logger": "^1.2",
-        "dragon-code/laravel-json-response": "^2.2",
+        "dragon-code/laravel-json-response": "^2.3",
         "dragon-code/laravel-migration-actions": "^3.0",
         "dragon-code/laravel-route-names": "^1.3",
-        "dragon-code/laravel-support": "^3.3",
-        "dragon-code/simple-dto": "^2.3",
-        "dragon-code/support": "^6.3",
-        "guzzlehttp/guzzle": "^7.4.3",
+        "dragon-code/laravel-support": "^3.4",
+        "dragon-code/simple-dto": "^2.5",
+        "dragon-code/support": "^6.6",
+        "guzzlehttp/guzzle": "^7.5",
         "laravel-lang/attributes": "^2.0",
         "laravel-lang/http-statuses": "^3.0",
         "laravel-lang/lang": "^12.0",
-        "laravel-lang/publisher": "^14.0",
-        "laravel/framework": "^9.19",
+        "laravel-lang/publisher": "^14.3",
+        "laravel/framework": "^9.35.1",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7"
     },
     "require-dev": {
         "dragon-code/env-sync-laravel": "^2.3",
         "dragon-code/pretty-routes": "^3.2",
-        "fakerphp/faker": "^1.19",
+        "fakerphp/faker": "^1.20",
         "laravel/telescope": "^4.9",
         "mockery/mockery": "^1.5",
-        "nunomaduro/collision": "^6.2",
+        "nunomaduro/collision": "^6.3",
         "phpunit/phpunit": "^9.5",
-        "spatie/laravel-ignition": "^1.2"
+        "spatie/laravel-ignition": "^1.5"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "DragonCode\\WebCore\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests"
         }
     },
     "config": {

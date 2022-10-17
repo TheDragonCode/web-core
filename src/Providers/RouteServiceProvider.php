@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected int $max_attempts = 120;
-
     public function boot()
     {
         $this->configureRateLimiting();
@@ -23,15 +21,15 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRoutes(): void
     {
         $this->routes(function () {
-            $this->bootRoutes('routes/api.php', fn () => Route::middleware('api'), $this->routeExist('routes/web.php'), 'api');
-            $this->bootRoutes('routes/web.php', fn () => Route::middleware('web'));
+            $this->bootRoutes($this->routePath('routes/api.php'), fn () => Route::middleware('api'), config('http.prefixes.api'));
+            $this->bootRoutes($this->routePath('routes/web.php'), fn () => Route::middleware('web'), config('http.prefixes.web'));
         });
     }
 
-    protected function bootRoutes(string $filename, callable $registrar, bool $when = false, ?string $prefix = null): void
+    protected function bootRoutes(string $filename, callable $registrar, ?string $prefix = null): void
     {
         if ($this->routeExist($filename)) {
-            $when
+            ! empty($prefix)
                 ? $registrar()->prefix($prefix)->group(base_path($filename))
                 : $registrar()->group(base_path($filename));
         }
@@ -39,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function configureRateLimiting(): void
     {
-        RateLimiter::for('api', fn (Request $request) => Limit::perMinute($this->max_attempts)->by($this->userIdentifier($request)));
+        RateLimiter::for('api', fn (Request $request) => Limit::perMinute($this->maxAttempts())->by($this->userIdentifier($request)));
     }
 
     protected function userIdentifier(Request $request): int|string
@@ -47,8 +45,18 @@ class RouteServiceProvider extends ServiceProvider
         return $request->user()?->id ?? $request->ip();
     }
 
+    protected function routePath(string $filename): string
+    {
+        return base_path($filename);
+    }
+
     protected function routeExist(string $filename): bool
     {
-        return file_exists(base_path($filename));
+        return file_exists($filename);
+    }
+
+    protected function maxAttempts(): int
+    {
+        return (int) config('http.throttle', 60);
     }
 }

@@ -18,4 +18,15 @@ return [
             'except' => [],
         ],
     ],
+
+    'response' => [
+        'json' => 'api',
+    ],
+
+    'throttle' => 120,
+
+    'prefixes' => [
+        'api' => null,
+        'web' => null,
+    ],
 ];
