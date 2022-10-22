@@ -8,6 +8,7 @@ use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\WebCore\Foundation\Bootstrap\LoadConfiguration;
 use DragonCode\WebCore\Http\Middleware\Authenticate;
 use DragonCode\WebCore\Http\Middleware\EncryptCookies;
+use DragonCode\WebCore\Http\Middleware\Localization;
 use DragonCode\WebCore\Http\Middleware\PreventRequestsDuringMaintenance;
 use DragonCode\WebCore\Http\Middleware\RedirectIfAuthenticated;
 use DragonCode\WebCore\Http\Middleware\TrimStrings;
@@ -57,6 +58,7 @@ abstract class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
+        Localization::class,
     ];
 
     protected array $mainMiddlewareGroups = [
