@@ -93,8 +93,6 @@ abstract class Kernel extends HttpKernel
         'throttle'         => ThrottleRequests::class,
     ];
 
-    protected ?array $cachedRouteMiddlewares = null;
-
     public function __construct(Application $app, Router $router)
     {
         $this->mergeMiddlewareGroups();
@@ -104,11 +102,7 @@ abstract class Kernel extends HttpKernel
 
     public function getRouteMiddleware(): array
     {
-        if (! is_null($this->cachedRouteMiddlewares)) {
-            return $this->cachedRouteMiddlewares;
-        }
-
-        return $this->cachedRouteMiddlewares = array_merge($this->mainRouteMiddleware, $this->routeMiddleware);
+        return array_merge($this->mainRouteMiddleware, $this->routeMiddleware);
     }
 
     protected function syncMiddlewareToRouter(): void
